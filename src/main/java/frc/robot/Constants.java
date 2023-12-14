@@ -14,6 +14,6 @@ package frc.robot;
  */
 public final class Constants {
     public static class RunUpToWallCommandConstants {
-        public static final double kWallDistanceThreshold = 1.0e2; // 100 mm
+        public static final double kWallDistanceThreshold = 175; // 175 mm
     }
 }

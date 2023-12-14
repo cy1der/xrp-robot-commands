@@ -38,28 +38,30 @@ public class XRPDrivetrain extends SubsystemBase {
 
     // Invert right side since motor is flipped
     m_rightMotor.setInverted(true);
+
+    m_diffDrive.setSafetyEnabled(true);
   }
 
   public void arcadeDrive(double xaxisSpeed, double zaxisRotate) {
     m_diffDrive.arcadeDrive(xaxisSpeed, zaxisRotate);
   }
-
+  
   public void resetEncoders() {
     m_leftEncoder.reset();
     m_rightEncoder.reset();
   }
-
+  
   public double getLeftDistanceInch() {
     return m_leftEncoder.getDistance();
   }
-
+  
   public double getRightDistanceInch() {
     return m_rightEncoder.getDistance();
   }
-
+  
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    m_diffDrive.feed();
   }
 
   @Override

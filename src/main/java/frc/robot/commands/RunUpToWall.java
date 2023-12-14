@@ -26,7 +26,7 @@ public class RunUpToWall extends Command {
     @Override
     public void execute() {
         // Move forward
-        m_drivetrain.arcadeDrive(1, 0);
+        m_drivetrain.arcadeDrive(0.8, 0);
     }
 
     @Override
