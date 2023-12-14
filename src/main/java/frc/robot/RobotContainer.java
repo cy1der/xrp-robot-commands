@@ -5,8 +5,9 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.RunUpToWall;
 import frc.robot.subsystems.XRPDrivetrain;
+import frc.robot.subsystems.XRPUltrasonic;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /**
@@ -18,8 +19,10 @@ import edu.wpi.first.wpilibj2.command.Command;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final XRPDrivetrain m_xrpDrivetrain = new XRPDrivetrain();
+  private final XRPUltrasonic m_xrpUltrasonic = new XRPUltrasonic();
 
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_xrpDrivetrain);
+  // private final ExampleCommand m_autoCommand = new ExampleCommand(m_xrpDrivetrain);
+  private final RunUpToWall m_runUpToWall = new RunUpToWall(m_xrpDrivetrain, m_xrpUltrasonic);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -41,7 +44,6 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    return m_runUpToWall;
   }
 }
