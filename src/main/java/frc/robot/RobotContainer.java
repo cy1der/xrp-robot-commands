@@ -5,8 +5,12 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.RunUpToLine;
 import frc.robot.commands.RunUpToWall;
 import frc.robot.subsystems.XRPDrivetrain;
+import frc.robot.subsystems.XRPLineSensor;
 import frc.robot.subsystems.XRPUltrasonic;
 import edu.wpi.first.wpilibj2.command.Command;
 
@@ -20,9 +24,12 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final XRPDrivetrain m_xrpDrivetrain = new XRPDrivetrain();
   private final XRPUltrasonic m_xrpUltrasonic = new XRPUltrasonic();
+  private final XRPLineSensor m_xrpLineSensor = new XRPLineSensor();
 
-  // private final ExampleCommand m_autoCommand = new ExampleCommand(m_xrpDrivetrain);
   private final RunUpToWall m_runUpToWall = new RunUpToWall(m_xrpDrivetrain, m_xrpUltrasonic);
+  private final RunUpToLine m_runUpToLine = new RunUpToLine(m_xrpDrivetrain, m_xrpLineSensor);
+
+  private final SendableChooser<Command> m_chooser = new SendableChooser<>();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -36,7 +43,12 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() {
+    m_chooser.setDefaultOption("Run up to wall", m_runUpToWall);
+    m_chooser.addOption("Run up to black line", m_runUpToLine);    
+
+    SmartDashboard.putData(m_chooser);
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -44,6 +56,6 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return m_runUpToWall;
+    return m_chooser.getSelected();
   }
 }
