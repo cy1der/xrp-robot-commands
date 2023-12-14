@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.RunUpToLine;
 import frc.robot.commands.RunUpToWall;
+import frc.robot.commands.RunUpToLine.LineColor;
 import frc.robot.subsystems.XRPDrivetrain;
 import frc.robot.subsystems.XRPLineSensor;
 import frc.robot.subsystems.XRPUltrasonic;
@@ -27,7 +28,8 @@ public class RobotContainer {
   private final XRPLineSensor m_xrpLineSensor = new XRPLineSensor();
 
   private final RunUpToWall m_runUpToWall = new RunUpToWall(m_xrpDrivetrain, m_xrpUltrasonic);
-  private final RunUpToLine m_runUpToLine = new RunUpToLine(m_xrpDrivetrain, m_xrpLineSensor);
+  private final RunUpToLine m_runUpToBlackLine = new RunUpToLine(m_xrpDrivetrain, m_xrpLineSensor, LineColor.black);
+  private final RunUpToLine m_runUpToWhiteLine = new RunUpToLine(m_xrpDrivetrain, m_xrpLineSensor, LineColor.white);
 
   private final SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -45,7 +47,8 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     m_chooser.setDefaultOption("Run up to wall", m_runUpToWall);
-    m_chooser.addOption("Run up to black line", m_runUpToLine);    
+    m_chooser.addOption("Run up to black line", m_runUpToBlackLine);    
+    m_chooser.addOption("Run up to white line", m_runUpToWhiteLine);    
 
     SmartDashboard.putData(m_chooser);
   }
