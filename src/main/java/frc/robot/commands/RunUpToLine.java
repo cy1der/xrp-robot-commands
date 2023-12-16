@@ -3,13 +3,9 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.XRPDrivetrain;
 import frc.robot.subsystems.XRPLineSensor;
+import frc.robot.types.LineColor;
 
 public class RunUpToLine extends Command {
-    public enum LineColor {
-        black,
-        white
-    }
-
     private final XRPDrivetrain m_drivetrain;
     private final XRPLineSensor m_lineSensor;
     private final LineColor m_lineColor;

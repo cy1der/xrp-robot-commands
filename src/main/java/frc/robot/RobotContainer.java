@@ -7,9 +7,10 @@ package frc.robot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.FollowLine;
 import frc.robot.commands.RunUpToLine;
 import frc.robot.commands.RunUpToWall;
-import frc.robot.commands.RunUpToLine.LineColor;
+import frc.robot.types.LineColor;
 import frc.robot.subsystems.XRPDrivetrain;
 import frc.robot.subsystems.XRPLineSensor;
 import frc.robot.subsystems.XRPUltrasonic;
@@ -30,6 +31,8 @@ public class RobotContainer {
   private final RunUpToWall m_runUpToWall = new RunUpToWall(m_xrpDrivetrain, m_xrpUltrasonic);
   private final RunUpToLine m_runUpToBlackLine = new RunUpToLine(m_xrpDrivetrain, m_xrpLineSensor, LineColor.black);
   private final RunUpToLine m_runUpToWhiteLine = new RunUpToLine(m_xrpDrivetrain, m_xrpLineSensor, LineColor.white);
+  private final FollowLine m_followBlackLine = new FollowLine(m_xrpDrivetrain, m_xrpLineSensor, LineColor.black);
+  private final FollowLine m_followWhiteLine = new FollowLine(m_xrpDrivetrain, m_xrpLineSensor, LineColor.white);
 
   private final SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -49,6 +52,8 @@ public class RobotContainer {
     m_chooser.setDefaultOption("Run up to wall", m_runUpToWall);
     m_chooser.addOption("Run up to black line", m_runUpToBlackLine);    
     m_chooser.addOption("Run up to white line", m_runUpToWhiteLine);    
+    m_chooser.addOption("Follow black line", m_followBlackLine);    
+    m_chooser.addOption("Follow white line", m_followWhiteLine);    
 
     SmartDashboard.putData(m_chooser);
   }
