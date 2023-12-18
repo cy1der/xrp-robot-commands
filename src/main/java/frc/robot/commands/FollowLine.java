@@ -58,7 +58,6 @@ public class FollowLine extends Command {
         if (moveRight)
             zAxis -= 0.6;
 
-        // m_drivetrain.arcadeDrive(0.8, zAxis);
         m_drivetrain.arcadeDrive(0.6, zAxis);
     }
 

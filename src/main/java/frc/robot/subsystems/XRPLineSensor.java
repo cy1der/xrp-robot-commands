@@ -15,10 +15,20 @@ public class XRPLineSensor extends SubsystemBase {
     @Override
     public void periodic() {}
 
+    /**
+     * Get voltage value of the right sensor
+     *
+     * @return Range from 0 to 5, 0 is pure white, 5 is pure black
+     */
     public double getRightValue() {
         return m_lineRight.getVoltage();
     }
 
+    /**
+     * Get voltage value of the left sensor
+     *
+     * @return Range from 0 to 5, 0 is pure white, 5 is pure black
+     */
     public double getLeftValue() {
         return m_lineLeft.getVoltage();
     }

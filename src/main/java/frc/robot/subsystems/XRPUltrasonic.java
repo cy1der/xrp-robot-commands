@@ -14,6 +14,11 @@ public class XRPUltrasonic extends SubsystemBase {
     @Override
     public void periodic() {}
 
+    /**
+     * Get distance from the ultrasonic sensor
+     *
+     * @return Range 20mm to 4000mm
+     */
     public double getDistance() {
         return m_ultrasonic.get();
     }
