@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.XRPDrivetrain;
 import frc.robot.subsystems.XRPLineSensor;
 import frc.robot.types.LineColor;
+import frc.robot.Constants.LineSensorConstants;
 
 public class FollowLine extends Command {
     private final XRPDrivetrain m_drivetrain;
@@ -36,22 +37,29 @@ public class FollowLine extends Command {
 
         switch (m_lineColor) {
             case white: {
-                if (m_lineSensor.getRightValue() <= 1) moveLeft = true;
-                if (m_lineSensor.getLeftValue() <= 1) moveRight = true;
+                if (m_lineSensor.getRightValue() <= LineSensorConstants.kThreshold)
+                    moveLeft = true;
+                if (m_lineSensor.getLeftValue() <= LineSensorConstants.kThreshold)
+                    moveRight = true;
             }
             case black:
             default: {
-                if (m_lineSensor.getRightValue() >= 4) moveLeft = true;
-                if (m_lineSensor.getLeftValue() >= 4) moveRight = true;
+                if (m_lineSensor.getRightValue() >= 5 - LineSensorConstants.kThreshold)
+                    moveLeft = true;
+                if (m_lineSensor.getLeftValue() >= 5 - LineSensorConstants.kThreshold)
+                    moveRight = true;
             }
         }
 
         double zAxis = 0;
 
-        if (moveLeft) zAxis += 0.5;
-        if (moveRight) zAxis -= 0.5;
+        if (moveLeft)
+            zAxis += 0.6;
+        if (moveRight)
+            zAxis -= 0.6;
 
-        m_drivetrain.arcadeDrive(0.8, zAxis);
+        // m_drivetrain.arcadeDrive(0.8, zAxis);
+        m_drivetrain.arcadeDrive(0.6, zAxis);
     }
 
     @Override
@@ -62,12 +70,13 @@ public class FollowLine extends Command {
 
     @Override
     public boolean isFinished() {
+        // return false;
         switch (m_lineColor) {
             case white:
-                return m_lineSensor.getRightValue() >= 4 && m_lineSensor.getLeftValue() >= 4;
+                return m_lineSensor.getRightValue() >= 5 - LineSensorConstants.kThreshold && m_lineSensor.getLeftValue() >= 5 - LineSensorConstants.kThreshold;
             case black:
             default:
-                return m_lineSensor.getRightValue() <= 1 && m_lineSensor.getLeftValue() <= 1;
+                return m_lineSensor.getRightValue() <= LineSensorConstants.kThreshold && m_lineSensor.getLeftValue() <= LineSensorConstants.kThreshold;
         }
     }
 }

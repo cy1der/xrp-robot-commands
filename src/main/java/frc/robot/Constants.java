@@ -16,4 +16,7 @@ public final class Constants {
     public static class RunUpToWallCommandConstants {
         public static final double kWallDistanceThreshold = 175; // 175 mm
     }
+    public static class LineSensorConstants {
+        public static final double kThreshold = 1;
+    }
 }

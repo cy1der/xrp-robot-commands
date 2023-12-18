@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants.LineSensorConstants;
 import frc.robot.subsystems.XRPDrivetrain;
 import frc.robot.subsystems.XRPLineSensor;
 import frc.robot.types.LineColor;
@@ -45,10 +46,10 @@ public class RunUpToLine extends Command {
     public boolean isFinished() {
         switch (m_lineColor) {
             case white:
-                return m_lineSensor.getRightValue() <= 1 && m_lineSensor.getLeftValue() <= 1;
+                return m_lineSensor.getRightValue() <= LineSensorConstants.kThreshold && m_lineSensor.getLeftValue() <= LineSensorConstants.kThreshold;
             case black:
             default:
-                return m_lineSensor.getRightValue() >= 4 && m_lineSensor.getLeftValue() >= 4;
+                return m_lineSensor.getRightValue() >= 5 - LineSensorConstants.kThreshold && m_lineSensor.getLeftValue() >= 5 - LineSensorConstants.kThreshold;
         }
     }
 }
